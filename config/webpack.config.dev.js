@@ -88,6 +88,7 @@ module.exports = {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
+      'mapbox-gl$': require.resolve('../node_modules/mapbox-gl/dist/mapbox-gl.js')
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -215,6 +216,7 @@ module.exports = {
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     // In development, this will be an empty string.
+    new webpack.EnvironmentPlugin(['MapboxAccessToken']),
     new InterpolateHtmlPlugin(env.raw),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({

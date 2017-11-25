@@ -5,5 +5,4 @@ import {test} from "./test.js";
 // main saga generators
 export function* sagas() {
   //yield [];
-  fork(takeLatest, 'FETCH_NUMBER', buttonFetchNumber)
 }
