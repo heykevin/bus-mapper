@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Button} from 'react-bootstrap';
 import { connect } from "react-redux";
-import ReactMapGL, {Marker} from 'react-map-gl';
+import ReactMapGL, {Feature} from 'react-map-gl';
 import MarkerComponent from './MarkerComponent.js';
 import {getKey} from './config.js';
 import api from './api/api.js';
@@ -16,6 +16,7 @@ class App extends Component {
     this.onButtonClick = this.onButtonClick.bind(this);
     this.onViewportChange = this.onViewportChange.bind(this);
     this.fetchBusList = this.fetchBusList.bind(this);
+    this.createMarkers = this.createMarkers.bind(this);
   }
 
   componentWillMount() {
@@ -37,14 +38,33 @@ class App extends Component {
   }
 
   onViewportChange(v) {
-    console.log("change");
+    // console.log("change");
+    console.log(v);
     this.props.dispatch({
       type: "VIEWPORT_CHANGED",
       state: v
     })
   }
 
+  createMarkers() {
+    if (this.props.busses) {
+      return this.props.busses.map((bus) =>
+        <MarkerComponent lat={bus.Latitude} long = {bus.Longitude}/>
+      )
+    } else {
+      return (
+        <div>
+          <MarkerComponent lat={49.2765} long={-123.2177} />
+        </div>
+      )
+    }
+
+  }
+
   render() {
+    // console.log(this.props);
+
+
     return (
       <div className="App">
         <div className="App-intro">
@@ -52,11 +72,12 @@ class App extends Component {
             {...this.props.viewport}
             width={window.innerWidth}
             height={window.innerHeight}
-            mapStyle="mapbox://styles/mapbox/streets-v9"
+            mapStyle="mapbox://styles/mapbox/streets-v10"
             onViewportChange={v => this.onViewportChange(v)}
             preventStyleDiffing={false}
             mapboxApiAccessToken={getKey()}>
-              <MarkerComponent lat={49.2765} long={-123.2177} />
+             {/* {this.createMarkers()}  */}
+               {this.props.busses}  
             </ReactMapGL>
         </div>
       </div>
@@ -75,8 +96,9 @@ function mapStateToProps(state) {
     pitch: 0
   }
 
-  console.log('state', state);
+  // console.log('state', state);
   return {
+    busses: state.bus.busses || [],
     viewport: state.map.viewport ? Object.assign({}, viewport, state.map.viewport) : viewport
   };
 }
