@@ -5,7 +5,6 @@ import ReactMapGL, {Feature} from 'react-map-gl';
 import MarkerComponent from './MarkerComponent.js';
 import {getKey} from './config.js';
 import api from './api/api.js';
-import logo from './logo.svg';
 import './styles/App.css';
 
 class App extends Component {
@@ -13,21 +12,24 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.onButtonClick = this.onButtonClick.bind(this);
     this.onViewportChange = this.onViewportChange.bind(this);
     this.fetchBusList = this.fetchBusList.bind(this);
     this.createMarkers = this.createMarkers.bind(this);
+    this.filterBusList = this.filterBusList.bind(this);
   }
 
+  // Get list of busses from api before map is rendered
   componentWillMount() {
     this.fetchBusList();
   }
 
-  onButtonClick() {
-    this.props.dispatch({
-      type: "BUTTON_CLICK",
-      counter: this.props.counter,
-      title: "ribbit"
+  // Filter busses based on viewport
+  filterBusList() {
+    const map = this.mapRef.getMap().getBounds();
+    const {_ne: upper, _sw: lower} = map
+    return this.props.busses.filter((bus) => {
+      return bus.Latitude <= upper.lat && bus.Longitude <= upper.lng
+        && bus.Latitude >= lower.lat && bus.Longitude >= lower.lng
     });
   }
 
@@ -38,46 +40,35 @@ class App extends Component {
   }
 
   onViewportChange(v) {
-    // console.log("change");
-    console.log(v);
     this.props.dispatch({
-      type: "VIEWPORT_CHANGED",
+      type: 'VIEWPORT_CHANGED',
       state: v
     })
   }
 
+  // Create marker components on filtered list of busses
   createMarkers() {
     if (this.props.busses) {
-      return this.props.busses.map((bus) =>
-        <MarkerComponent lat={bus.Latitude} long = {bus.Longitude}/>
-      )
-    } else {
-      return (
-        <div>
-          <MarkerComponent lat={49.2765} long={-123.2177} />
-        </div>
+      return this.filterBusList(this.props.busses).map((bus) =>
+        <MarkerComponent key={bus.VehicleNo} lat={bus.Latitude} long = {bus.Longitude}/>
       )
     }
-
   }
 
   render() {
-    // console.log(this.props);
-
-
     return (
       <div className="App">
         <div className="App-intro">
           <ReactMapGL
             {...this.props.viewport}
+            ref = { map => this.mapRef = map }
             width={window.innerWidth}
             height={window.innerHeight}
             mapStyle="mapbox://styles/mapbox/streets-v10"
             onViewportChange={v => this.onViewportChange(v)}
             preventStyleDiffing={false}
             mapboxApiAccessToken={getKey()}>
-             {/* {this.createMarkers()}  */}
-               {this.props.busses}  
+              {this.props.busses && this.mapRef ? this.createMarkers(): null}  
             </ReactMapGL>
         </div>
       </div>

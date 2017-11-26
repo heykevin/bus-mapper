@@ -1,6 +1,5 @@
 import { takeLatest } from 'redux-saga';
 import { fork } from 'redux-saga/effects';
-import { test } from './test.js';
 import {mapFetchBusses} from './bus.js';
 
 // main saga generators
