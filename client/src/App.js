@@ -23,6 +23,14 @@ class App extends Component {
     this.fetchBusList();
   }
 
+  componentDidMount() {
+    this.timer = setInterval(this.fetchBusList, 10000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
   // Filter busses based on viewport
   filterBusList() {
     const map = this.mapRef.getMap().getBounds();
