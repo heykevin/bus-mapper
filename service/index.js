@@ -14,6 +14,7 @@ app.use(function(req, res, next) {
 
 // Get Bus information from TransLink api as json
 app.get("/busses/", function(req, response) {
+  // Superagent acting very weird all of a sudden so it is commented out
   // request
   //   .get(getTransHost())
   //   .accept('application/json')
@@ -44,7 +45,7 @@ app.get("/busses/", function(req, response) {
       response.send(500).send("broken");
     });
   });
-  
+
 app.listen(
   5000,
   () => console.log(`Listening on localhost:5000`)

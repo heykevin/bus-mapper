@@ -15,6 +15,8 @@ npm start
 Client will start on localhost:3000
 
 ### Backend
+Backend is required to serve as a proxy for the TransLink api due to CORS.
+
 ```bash
 cd service
 npm install
@@ -27,3 +29,13 @@ Screenshots will be saved in /service/videos/ by default.
 Frontend can be built by running `npm run build` then serve `index.html` on your favourite http server.
 Backend is a simple express app and can also be hosted on your favourite web server.
 
+## Resource used
+* React from React create-an-app
+* Redux
+* Redux saga - library for handling async actions
+* superagent/axios
+* React-mapbox-gl
+* Express
+* Node
+* Font awesome
+* Translink

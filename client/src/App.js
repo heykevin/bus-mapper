@@ -25,6 +25,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // Retrieve list of busses from api every 10 seconds
     this.timer = setInterval(this.fetchBusList, 10000);
   }
 
@@ -32,7 +33,7 @@ class App extends Component {
     clearInterval(this.timer);
   }
 
-  // Filter busses based on viewport
+  // Filter busses depending if they are in the viewport bounds
   filterBusList() {
     const map = this.mapRef.getMap().getBounds();
     const {_ne: upper, _sw: lower} = map
@@ -42,12 +43,12 @@ class App extends Component {
     });
   }
 
+  // Get list of busses from api
   fetchBusList() {
     this.props.dispatch({
       type: 'MAP_FETCH_BUSSES'
     });
   }
-
   onViewportChange(v) {
     this.props.dispatch({
       type: 'VIEWPORT_CHANGE',
@@ -65,6 +66,8 @@ class App extends Component {
     }
   }
 
+  // Custom zoom implementation ot ignore mouse wheel acceleration
+  // Acceleration resulted in poor performance when causing big jumps of zoom
   onMousewheel(event) {
     event.preventDefault();
     const minZoom = 12;
@@ -110,7 +113,6 @@ function mapStateToProps(state) {
     pitch: 0
   }
 
-  // console.log('state', state);
   return {
     busses: state.bus.busses || [],
     viewport: state.map.viewport ? Object.assign({}, viewport, state.map.viewport) : viewport

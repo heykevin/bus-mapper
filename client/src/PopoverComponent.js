@@ -3,7 +3,7 @@ import {Marker} from 'react-map-gl';
 import {Popover, OverlayTrigger, Overlay} from 'react-bootstrap';
 import './styles/PopoverComponent.css';
 
-// Dumb component for Markers
+// Dumb component for Popover
 class PopoverComponent extends Component {
   render() {
     const popoverHoverFocus = (
