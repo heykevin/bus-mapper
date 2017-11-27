@@ -23,7 +23,6 @@ npm install
 npm start
 ```
 Service will start on localhost:5000
-Screenshots will be saved in /service/videos/ by default.
 
 ## Deployment
 Frontend can be built by running `npm run build` then serve `index.html` on your favourite http server.
