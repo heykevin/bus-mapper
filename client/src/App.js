@@ -9,8 +9,8 @@ import './styles/App.css';
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.onViewportChange = this.onViewportChange.bind(this);
     this.fetchBusList = this.fetchBusList.bind(this);
@@ -48,9 +48,10 @@ class App extends Component {
 
   // Create marker components on filtered list of busses
   createMarkers() {
+    console.log("creating markers");
     if (this.props.busses) {
       return this.filterBusList(this.props.busses).map((bus) =>
-        <MarkerComponent key={bus.VehicleNo} lat={bus.Latitude} long = {bus.Longitude}/>
+        <MarkerComponent key={bus.VehicleNo} lat={bus.Latitude} long = {bus.Longitude} info={bus}/>
       )
     }
   }

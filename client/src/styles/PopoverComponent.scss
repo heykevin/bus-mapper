@@ -1,0 +1,20 @@
+.bus-link {
+  cursor: pointer;
+}
+.popover {
+  .popover-body {
+    .popover-route {
+      font-size: 24px !important;
+      font-weight: 700;
+
+      .route-number {
+        color: #0069c0;
+      }
+    }
+
+    .bus-info {
+      color: #616161;
+      font-size: 14px;
+    }
+  }
+}

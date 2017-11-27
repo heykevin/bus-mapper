@@ -8,12 +8,6 @@ export default function map(state = {}, action) {
         ...state,
         viewport: action.state
       };
-    // case "BUS_LIST_SAVE":
-    //   // console.log('save bus lis');
-    //   return {
-    //     ...state,
-    //     busses: action.busses.map((bus) => <MarkerComponent lat={bus.Latitude} long = {bus.Longitude}/>)
-    //   };
     default:
       return state;
   }
