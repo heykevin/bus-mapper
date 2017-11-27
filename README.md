@@ -28,7 +28,7 @@ Service will start on localhost:5000
 Frontend can be built by running `npm run build` then serve `index.html` on your favourite http server.
 Backend is a simple express app and can also be hosted on your favourite web server.
 
-## Resource used
+## Resources used
 * React from React create-an-app
 * Redux
 * Redux saga - library for handling async actions
