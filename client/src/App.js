@@ -16,6 +16,7 @@ class App extends Component {
     this.fetchBusList = this.fetchBusList.bind(this);
     this.createMarkers = this.createMarkers.bind(this);
     this.filterBusList = this.filterBusList.bind(this);
+    this.onMousewheel = this.onMousewheel.bind(this);
   }
 
   // Get list of busses from api before map is rendered
@@ -56,7 +57,7 @@ class App extends Component {
 
   // Create marker components on filtered list of busses
   createMarkers() {
-    console.log("creating markers");
+    // console.log("creating markers");
     if (this.props.busses) {
       return this.filterBusList(this.props.busses).map((bus) =>
         <MarkerComponent key={bus.VehicleNo} lat={bus.Latitude} long = {bus.Longitude} info={bus}/>
@@ -64,13 +65,27 @@ class App extends Component {
     }
   }
 
+  onMousewheel(event) {
+    event.preventDefault();
+    const minZoom = 12;
+    const maxZoom = 16;
+    if (event.deltaY > 0) {
+      const newZoom = this.props.viewport.zoom - 0.1
+      this.onViewportChange({...this.props.viewport, zoom: newZoom <= minZoom ? minZoom : newZoom});
+    } else {
+      const newZoom = this.props.viewport.zoom + 0.1
+      this.onViewportChange({...this.props.viewport, zoom: newZoom >= maxZoom ? maxZoom : newZoom});
+    }
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-intro">
+        <div className="App-intro" onWheel={this.onMousewheel}>
           <ReactMapGL
             {...this.props.viewport}
             ref = { map => this.mapRef = map }
+            scrollZoom={false}
             width={window.innerWidth}
             height={window.innerHeight}
             mapStyle="mapbox://styles/mapbox/streets-v10"
