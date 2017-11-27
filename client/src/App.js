@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import {Button} from 'react-bootstrap';
 import { connect } from "react-redux";
-import ReactMapGL, {Feature} from 'react-map-gl';
+import ReactMapGL from 'react-map-gl';
 import MarkerComponent from './MarkerComponent.js';
 import {getKey} from './config.js';
-import api from './api/api.js';
 import './styles/App.css';
 
 class App extends Component {

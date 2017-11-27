@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {Marker} from 'react-map-gl';
-import {Popover, OverlayTrigger, Overlay} from 'react-bootstrap';
+import {Popover, OverlayTrigger} from 'react-bootstrap';
 import './styles/PopoverComponent.css';
 
 // Dumb component for Popover
