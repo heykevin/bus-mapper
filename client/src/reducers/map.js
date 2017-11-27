@@ -7,7 +7,7 @@ export default function map(state = {}, action) {
       // console.log("REDUCER MAP", action.action.state);
       return {
         ...state,
-        viewport: action.action.state
+        viewport: action.state
       };
     default:
       return state;

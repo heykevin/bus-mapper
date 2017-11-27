@@ -50,7 +50,7 @@ class App extends Component {
 
   onViewportChange(v) {
     this.props.dispatch({
-      type: 'VIEWPORT_CHANGED',
+      type: 'VIEWPORT_CHANGE',
       state: v
     })
   }
@@ -101,11 +101,10 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-
   // Default location
   const viewport = {
-    latitude: 49.2765,
-    longitude:  -123.2177,
+    latitude: 49.2606052,
+    longitude:  -123.2459938,
     zoom: 14,
     bearing: 0,
     pitch: 0
